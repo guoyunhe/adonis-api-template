@@ -2,12 +2,24 @@
 
 ## Local Development
 
+System requirements:
+
+- Node.js 16+
+- Docker
+- Git
+
 ```bash
+# start docker containers for mysql, etc.
+docker-compose up
+
 # configure environment variables
 cp .env.example .env
 
 # install dependencies
 npm install
+
+# migrate database structure
+node ace migration:run
 
 # start server with auto-reload
 node ace serve --watch
@@ -37,6 +49,9 @@ vi .env
 # install dependencies
 npm install
 
+# migrate database structure
+node ace migration:run
+
 # build the server
 node ace build --production
 
@@ -53,6 +68,9 @@ Regular update:
 ```bash
 # install dependencies
 npm install
+
+# migrate database structure
+node ace migration:run
 
 # build the server
 node ace build --production
