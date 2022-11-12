@@ -61,6 +61,14 @@ node ace build --production
 sudo systemctl restart pm2-root
 ```
 
+## API
+
+### Authentication
+
+#### POST /login
+
+#### POST /register
+
 ## Documentation
 
 - [adonis-api-template](https://github.com/guoyunhe/adonis-api-template) - the template
