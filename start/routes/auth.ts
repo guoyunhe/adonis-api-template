@@ -30,6 +30,6 @@ Route.post('register', async ({ request, response }) => {
   return response.created(user);
 });
 
-Route.get('user', async ({ auth }) => {
-  return auth.user;
-});
+Route.get('user', async ({ auth, response }) => {
+  return response.ok(auth.user || null);
+}).middleware('auth');

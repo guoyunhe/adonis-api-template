@@ -103,3 +103,11 @@ interface RequestData {
 - [AdonisJS](https://docs.adonisjs.com/) - the framework
 - [PM2](https://pm2.keymetrics.io/) - the daemon process manager
 - [Certbot](https://certbot.eff.org/) - get free HTTPS certificates
+
+## About The Template
+
+This app is generated from https://github.com/guoyunhe/adonis-api-template
+
+Issues and pull requests are always welcome.
+
+Looking for a front-end template, too? Checkout https://github.com/guoyunhe/react-app-template
