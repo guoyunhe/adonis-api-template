@@ -12,7 +12,7 @@
     "removeComments": true,
     "declaration": false,
     "moduleResolution": "node",
-    "strictNullChecks": true,
+    "strict": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
