@@ -5,8 +5,8 @@
  * file.
  */
 
-import Application from '@ioc:Adonis/Core/Application';
 import { I18nConfig } from '@ioc:Adonis/Addons/I18n';
+import Application from '@ioc:Adonis/Core/Application';
 
 const i18nConfig: I18nConfig = {
   /*
@@ -49,7 +49,7 @@ const i18nConfig: I18nConfig = {
   | inside the `resources/lang` directory.
   |
   */
-  // supportedLocales: [],
+  supportedLocales: ['en', 'zh'],
 
   /*
   |--------------------------------------------------------------------------

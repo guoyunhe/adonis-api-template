@@ -20,7 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 import './routes/auth';
-
-Route.get('/', async () => {
-  return { hello: 'world' };
+Route.get('/', async ({ i18n }) => {
+  return { hello: i18n.formatMessage('messages.hello') };
 });
