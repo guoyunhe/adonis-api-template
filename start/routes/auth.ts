@@ -1,26 +1,31 @@
-import Route from '@ioc:Adonis/Core/Route'
-import { rules, schema } from '@ioc:Adonis/Core/Validator'
-import User from 'App/Models/User'
+import Route from '@ioc:Adonis/Core/Route';
+import { rules, schema } from '@ioc:Adonis/Core/Validator';
+import User from 'App/Models/User';
 
 Route.post('login', async ({ auth, request, response }) => {
-  const email = request.input('email')
-  const password = request.input('password')
+  const email = request.input('email');
+  const password = request.input('password');
 
   try {
-    const token = await auth.use('api').attempt(email, password)
-    return token
+    const token = await auth.use('api').attempt(email, password);
+    return token;
   } catch {
-    return response.unauthorized('Invalid credentials')
+    return response.unauthorized('Invalid credentials');
   }
-})
+});
 
 Route.post('register', async ({ request, response }) => {
   const validations = await schema.create({
-    username: schema.string({}, [rules.unique({ table: 'users', column: 'username' })]),
-    email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
+    username: schema.string({}, [
+      rules.unique({ table: 'users', column: 'username' }),
+    ]),
+    email: schema.string({}, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
+    ]),
     password: schema.string({}, [rules.confirmed()]),
-  })
-  const data = await request.validate({ schema: validations })
-  const user = await User.create(data)
-  return response.created(user)
-})
+  });
+  const data = await request.validate({ schema: validations });
+  const user = await User.create(data);
+  return response.created(user);
+});

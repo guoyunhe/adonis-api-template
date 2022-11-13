@@ -85,6 +85,16 @@ sudo systemctl restart pm2-root
 
 #### POST /login
 
+Body:
+
+```ts
+interface RequestData {
+  name: string;
+  email: string;
+  password: string;
+}
+```
+
 #### POST /register
 
 ## Documentation
