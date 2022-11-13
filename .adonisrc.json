@@ -18,7 +18,8 @@
     "./providers/AppProvider",
     "@adonisjs/core",
     "@adonisjs/auth",
-    "@adonisjs/lucid"
+    "@adonisjs/lucid",
+    "@adonisjs/i18n"
   ],
   "aceProviders": ["@adonisjs/repl"],
   "tests": {
@@ -30,5 +31,6 @@
       }
     ]
   },
-  "testProviders": ["@japa/preset-adonis/TestsProvider"]
+  "testProviders": ["@japa/preset-adonis/TestsProvider"],
+  "metaFiles": ["resources/lang/**/*.(json|yaml)"]
 }
