@@ -29,3 +29,7 @@ Route.post('register', async ({ request, response }) => {
   const user = await User.create(data);
   return response.created(user);
 });
+
+Route.get('user', async ({ auth }) => {
+  return auth.user;
+});
