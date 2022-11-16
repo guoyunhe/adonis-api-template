@@ -13,6 +13,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "strict": true,
+    "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
