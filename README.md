@@ -4,13 +4,17 @@
 
 System requirements:
 
-- Node.js 16+
 - Docker
 - Git
+- Node.js 16+
+
+First, you need to fork and clone the git repository.
+
+Then run the following commands:
 
 ```bash
 # start docker containers for mysql, etc.
-docker-compose up
+docker compose up
 
 # configure environment variables
 cp .env.example .env
@@ -18,12 +22,14 @@ cp .env.example .env
 # install dependencies
 npm install
 
-# migrate database structure
+# migrate database schema
 node ace migration:run
 
 # start server with auto-reload
 node ace serve --watch
 ```
+
+If remote source code was changed, run above commands again to update your local project.
 
 ## Production Deployment
 
