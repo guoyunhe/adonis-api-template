@@ -10,6 +10,20 @@ class CamelCaseNamingStrategy extends SnakeCaseNamingStrategy {
   public serializedName(_model: LucidModel, attributeName: string): string {
     return attributeName;
   }
+
+  public paginationMetaKeys() {
+    return {
+      total: 'total',
+      perPage: 'perPage',
+      currentPage: 'currentPage',
+      lastPage: 'lastPage',
+      firstPage: 'firstPage',
+      firstPageUrl: 'firstPageUrl',
+      lastPageUrl: 'lastPageUrl',
+      nextPageUrl: 'nextPageUrl',
+      previousPageUrl: 'previousPageUrl',
+    };
+  }
 }
 
 export default class Model extends BaseModel {
