@@ -19,7 +19,12 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
-import './routes/auth';
+
+Route.post('/login', 'AuthController.login');
+Route.post('/logout', 'AuthController.logout').middleware('auth');
+Route.post('/register', 'AuthController.register');
+Route.get('/user', 'AuthController.user').middleware('auth');
+
 Route.get('/', async ({ i18n }) => {
   return { hello: i18n.formatMessage('messages.hello') };
 });
