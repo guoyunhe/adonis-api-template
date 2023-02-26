@@ -53,7 +53,7 @@ export default driveConfig({
       | files.
       |
       */
-      root: Application.makePath('storage'),
+      root: Env.get('DRIVE_LOCAL_ROOT', Application.makePath('storage')),
 
       /*
       |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ export default driveConfig({
       | you are not registering routes with this prefix.
       |
       */
-      basePath: '/uploads',
+      basePath: '/storage',
     },
 
     /*
