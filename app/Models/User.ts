@@ -15,6 +15,9 @@ export default class User extends Model {
   @column()
   public rememberMeToken: string | null;
 
+  @column()
+  public role: string | null;
+
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
