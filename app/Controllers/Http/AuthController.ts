@@ -3,7 +3,7 @@ import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import Activity from 'App/Models/Activity';
 import User from 'App/Models/User';
 
-export default class GamesController {
+export default class AuthController {
   public async login({ auth, request, response }: HttpContextContract) {
     const email = request.input('email');
     const password = request.input('password');
