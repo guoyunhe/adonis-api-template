@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
-import Activity from 'App/Models/Activity';
 import User from 'App/Models/User';
 
 export default class AuthController {
@@ -40,7 +39,6 @@ export default class AuthController {
     });
     const data = await request.validate({ schema: validations });
     const user = await User.create(data);
-    await Activity.create({ type: 'user', userId: user.id, action: 'register' });
     const token = await auth.use('api').attempt(data.email, data.password);
     return { user, token };
   }
