@@ -26,11 +26,7 @@ export default class AuthController {
 
   public async register({ auth, request }: HttpContextContract) {
     const validations = await schema.create({
-      username: schema.string({ trim: true }, [
-        rules.alphaNum({ allow: ['underscore'] }),
-        rules.unique({ table: 'users', column: 'username', caseInsensitive: true }),
-        rules.maxLength(255),
-      ]),
+      name: schema.string({ trim: true }, [rules.maxLength(255)]),
       email: schema.string({ trim: true }, [
         rules.email(),
         rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
