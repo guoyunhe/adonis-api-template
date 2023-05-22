@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql
+  mariadb:
+    image: mariadb
     restart: always
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: lucid
-      MYSQL_USER: lucid
-      MYSQL_PASSWORD: secret
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: lucid
+      MARIADB_USER: lucid
+      MARIADB_PASSWORD: secret
