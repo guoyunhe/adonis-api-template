@@ -5,7 +5,7 @@ import Model from './Model';
 
 export default class User extends Model {
   @attachment()
-  public avatar: AttachmentContract;
+  public avatar: AttachmentContract | null;
 
   @column()
   public name: string;
