@@ -21,9 +21,11 @@
 import Route from '@ioc:Adonis/Core/Route';
 
 Route.post('/login', 'AuthController.login');
-Route.post('/logout', 'AuthController.logout').middleware('auth');
 Route.post('/register', 'AuthController.register');
-Route.get('/user', 'AuthController.user').middleware('auth');
+
+Route.post('/logout', 'AuthController.logout').middleware('auth');
+Route.get('/user', 'AuthController.show').middleware('auth');
+Route.patch('/user', 'AuthController.update').middleware('auth');
 
 Route.get('/', async ({ i18n }) => {
   return { hello: i18n.formatMessage('messages.hello') };
