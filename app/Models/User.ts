@@ -4,7 +4,7 @@ import { beforeSave, column } from '@ioc:Adonis/Lucid/Orm';
 import Model from './Model';
 
 export default class User extends Model {
-  @attachment()
+  @attachment({ folder: 'avatars' })
   public avatar: AttachmentContract | null;
 
   @column()
