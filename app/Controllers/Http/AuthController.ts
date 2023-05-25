@@ -105,6 +105,6 @@ export default class AuthController {
 
     auth.user!.save();
 
-    return await User.find(auth.user!.id);
+    return await User.find(auth.user!.id); // to recompute avatar urls
   }
 }
