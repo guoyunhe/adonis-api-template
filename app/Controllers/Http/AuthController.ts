@@ -109,6 +109,22 @@ export default class AuthController {
       await auth.user!.related('avatar').associate(avatarImage);
     }
 
+    if (name) {
+      auth.user!.name = name;
+    }
+
+    if (username) {
+      auth.user!.username = username;
+    }
+
+    if (email) {
+      auth.user!.email = email;
+    }
+
+    if (password) {
+      auth.user!.password = password;
+    }
+
     await auth.user!.save();
 
     await auth.user!.load('avatar');
