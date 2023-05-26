@@ -10,7 +10,7 @@ import Model from './Model';
 
 interface ImageCreateFromFileOptions {
   filePath: string;
-  folder: string;
+  folder?: string;
   userId: number;
   resizeOptions: { width: number; height: number; fit: 'contain' | 'cover' };
 }

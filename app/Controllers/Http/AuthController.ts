@@ -51,6 +51,7 @@ export default class AuthController {
   }
 
   public async show({ auth }: HttpContextContract) {
+    await auth.user?.load('avatar');
     return auth.user;
   }
 
@@ -91,18 +92,27 @@ export default class AuthController {
     });
 
     if (avatar?.tmpPath) {
-      const avatarImage = await Image.createFromFile(
-        avatar.tmpPath,
-        auth.user!.id,
-        512,
-        512,
-        'cover'
-      );
-      auth.user!.related('avatar').associate(avatarImage);
+      const avatarImage = await Image.createFromFile({
+        filePath: avatar.tmpPath,
+        userId: auth.user!.id,
+        folder: 'avatars',
+        resizeOptions: {
+          width: 512,
+          height: 512,
+          fit: 'cover',
+        },
+      });
+      if (auth.user?.avatarId) {
+        const oldAvatarImage = await Image.find(auth.user?.avatarId);
+        await oldAvatarImage?.delete();
+      }
+      await auth.user!.related('avatar').associate(avatarImage);
     }
 
-    auth.user!.save();
+    await auth.user!.save();
 
-    return auth.user!.id;
+    await auth.user!.load('avatar');
+
+    return auth.user;
   }
 }
