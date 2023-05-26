@@ -1,11 +1,14 @@
-import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite';
 import Hash from '@ioc:Adonis/Core/Hash';
-import { beforeSave, column } from '@ioc:Adonis/Lucid/Orm';
+import { BelongsTo, beforeSave, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
+import Image from './Image';
 import Model from './Model';
 
 export default class User extends Model {
-  @attachment({ folder: 'avatars', preComputeUrl: true })
-  public avatar: AttachmentContract | null;
+  @belongsTo(() => Image)
+  public avatar: BelongsTo<typeof Image>;
+
+  @column()
+  public avatarId: number;
 
   @column()
   public name: string;
