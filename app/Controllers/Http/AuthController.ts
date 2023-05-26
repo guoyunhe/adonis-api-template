@@ -1,10 +1,7 @@
-import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
+import Image from 'App/Models/Image';
 import User from 'App/Models/User';
-import { rename } from 'fs/promises';
-import sharp from 'sharp';
-import { file } from 'tmp-promise';
 
 export default class AuthController {
   public async login({ auth, request, response }: HttpContextContract) {
@@ -94,17 +91,18 @@ export default class AuthController {
     });
 
     if (avatar?.tmpPath) {
-      const tempFile = await file();
-      await sharp(avatar.tmpPath)
-        .resize({ width: 512, height: 512, fit: 'cover' })
-        .webp()
-        .toFile(tempFile.path);
-      await rename(tempFile.path, avatar.tmpPath);
-      auth.user!.avatar = Attachment.fromFile(avatar);
+      const avatarImage = await Image.createFromFile(
+        avatar.tmpPath,
+        auth.user!.id,
+        512,
+        512,
+        'cover'
+      );
+      auth.user!.related('avatar').associate(avatarImage);
     }
 
     auth.user!.save();
 
-    return await User.find(auth.user!.id); // to recompute avatar urls
+    return auth.user!.id;
   }
 }

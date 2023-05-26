@@ -14,6 +14,9 @@ export default class User extends Model {
   public name: string;
 
   @column()
+  public username: string;
+
+  @column()
   public email: string;
 
   @column({ serializeAs: null })
