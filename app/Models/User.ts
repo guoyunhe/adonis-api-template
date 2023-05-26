@@ -4,7 +4,7 @@ import Image from './Image';
 import Model from './Model';
 
 export default class User extends Model {
-  @belongsTo(() => Image)
+  @belongsTo(() => Image, { foreignKey: 'avatarId' })
   public avatar: BelongsTo<typeof Image>;
 
   @column()
