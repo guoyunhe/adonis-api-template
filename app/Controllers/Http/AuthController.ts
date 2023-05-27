@@ -11,6 +11,7 @@ export default class AuthController {
     try {
       const token = await auth.use('api').attempt(email, password);
       const user = await User.findBy('email', email);
+      await user?.load('avatar');
       return { token, user };
     } catch {
       return response.unauthorized(i18n.formatMessage('auth.invalidCredetials'));
@@ -135,7 +136,7 @@ export default class AuthController {
       }),
     });
 
-    if (!(await auth.use('api').verifyCredentials(auth.user!.email, password))) {
+    if (!(await auth.use('api').verifyCredentials(auth.user!.email, oldPassword))) {
       return response.unprocessableEntity({
         message: i18n.formatMessage('auth.oldPasswordIncorrect'),
       });
