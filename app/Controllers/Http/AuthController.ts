@@ -56,7 +56,7 @@ export default class AuthController {
   }
 
   public async update({ auth, request }: HttpContextContract) {
-    const { avatar, name, username, email, password } = await request.validate({
+    const { avatar, name, username, email } = await request.validate({
       schema: schema.create({
         avatar: schema.file.optional({
           size: '20mb',
@@ -82,11 +82,6 @@ export default class AuthController {
             whereNot: { id: auth.user!.id },
           }),
           rules.maxLength(255),
-        ]),
-        password: schema.string.optional({ trim: true }, [
-          rules.minLength(8),
-          rules.maxLength(32),
-          rules.confirmed('passwordConfirm'),
         ]),
       }),
     });
@@ -121,14 +116,40 @@ export default class AuthController {
       auth.user!.email = email;
     }
 
-    if (password) {
-      auth.user!.password = password;
-    }
-
     await auth.user!.save();
 
     await auth.user!.load('avatar');
 
     return auth.user;
+  }
+
+  public async password({ auth, i18n, request, response }: HttpContextContract) {
+    const { oldPassword, password } = await request.validate({
+      schema: schema.create({
+        oldPassword: schema.string({ trim: true }),
+        password: schema.string({ trim: true }, [
+          rules.minLength(8),
+          rules.maxLength(32),
+          rules.confirmed('passwordConfirm'),
+        ]),
+      }),
+    });
+
+    if (!(await auth.use('api').verifyCredentials(auth.user!.email, password))) {
+      return response.unprocessableEntity({
+        message: i18n.formatMessage('auth.oldPasswordIncorrect'),
+      });
+    }
+
+    if (oldPassword === password) {
+      return response.unprocessableEntity({
+        message: i18n.formatMessage('auth.oldAndNewPasswordEqual'),
+      });
+    }
+
+    auth.user!.password = password;
+    await auth.user!.save();
+
+    return response.ok({ message: i18n.formatMessage('auth.passwordUpdatedSuccessfully') });
   }
 }
