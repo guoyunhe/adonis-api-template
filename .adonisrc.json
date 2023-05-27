@@ -19,8 +19,7 @@
     "@adonisjs/core",
     "@adonisjs/auth",
     "@adonisjs/lucid",
-    "@adonisjs/i18n",
-    "@adonisjs/attachment-lite"
+    "@adonisjs/i18n"
   ],
   "aceProviders": ["@adonisjs/repl"],
   "tests": {
