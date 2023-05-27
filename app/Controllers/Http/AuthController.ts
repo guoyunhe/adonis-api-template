@@ -4,7 +4,7 @@ import Image from 'App/Models/Image';
 import User from 'App/Models/User';
 
 export default class AuthController {
-  public async login({ auth, request, response }: HttpContextContract) {
+  public async login({ auth, i18n, request, response }: HttpContextContract) {
     const email = request.input('email');
     const password = request.input('password');
 
@@ -13,7 +13,7 @@ export default class AuthController {
       const user = await User.findBy('email', email);
       return { token, user };
     } catch {
-      return response.unauthorized('Invalid credentials');
+      return response.unauthorized(i18n.formatMessage('auth.invalidCredetials'));
     }
   }
 
