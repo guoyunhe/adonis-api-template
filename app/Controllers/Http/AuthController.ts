@@ -136,15 +136,27 @@ export default class AuthController {
       }),
     });
 
-    if (!(await auth.use('api').verifyCredentials(auth.user!.email, oldPassword))) {
+    try {
+      await auth.use('api').verifyCredentials(auth.user!.email, oldPassword);
+    } catch {
       return response.unprocessableEntity({
-        message: i18n.formatMessage('auth.oldPasswordIncorrect'),
+        errors: [
+          {
+            field: 'oldPassword',
+            message: i18n.formatMessage('auth.oldPasswordIncorrect'),
+          },
+        ],
       });
     }
 
     if (oldPassword === password) {
       return response.unprocessableEntity({
-        message: i18n.formatMessage('auth.oldAndNewPasswordEqual'),
+        errors: [
+          {
+            field: 'password',
+            message: i18n.formatMessage('auth.oldAndNewPasswordEqual'),
+          },
+        ],
       });
     }
 
