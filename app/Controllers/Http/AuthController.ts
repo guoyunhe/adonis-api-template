@@ -14,7 +14,7 @@ export default class AuthController {
       await user?.load('avatar');
       return { token, user };
     } catch {
-      return response.unauthorized(i18n.formatMessage('auth.invalidCredetials'));
+      return response.unauthorized({ message: i18n.formatMessage('auth.invalidCredetials') });
     }
   }
 
