@@ -1,4 +1,4 @@
-# RESTful API Server
+# AdonisJS RESTful API Server
 
 ## Local Development
 
