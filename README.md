@@ -63,10 +63,9 @@ node ace build --production
 
 # daemon process manager to keep your app always online
 sudo npm i -g pm2
-sudo pm2 startup
-sudo pm2 start build/server.js
-sudo pm2 save
-sudo systemctl restart pm2-root
+pm2 startup
+pm2 start pm2.config.js
+pm2 save
 ```
 
 Regular update:
