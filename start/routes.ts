@@ -27,6 +27,15 @@ Route.get('/user', 'AuthController.show').middleware('auth');
 Route.put('/user', 'AuthController.update').middleware('auth');
 Route.put('/password', 'AuthController.password').middleware('auth');
 
+Route.resource('/images', 'ImagesController')
+  .apiOnly()
+  .middleware({
+    store: ['auth'],
+    index: ['auth'],
+    update: ['auth'],
+    destroy: ['auth'],
+  });
+
 Route.get('/', async ({ i18n }) => {
   return { hello: i18n.formatMessage('messages.hello') };
 });
