@@ -45,13 +45,12 @@ export default class Image extends Model {
 
   public static async createFromFile({
     filePath,
-    folder = 'images',
     userId,
     resizeOptions,
   }: ImageCreateFromFileOptions) {
     let buffer = await readFile(filePath);
     buffer = await sharp(buffer).webp().resize(resizeOptions).toBuffer();
-    const path = `${folder}/${uuidv4()}.webp`;
+    const path = `images/${uuidv4()}.webp`;
     await Drive.put(path, buffer);
     const size = buffer.byteLength;
     const { width, height } = imageSize(buffer);

@@ -91,7 +91,6 @@ export default class AuthController {
       const avatarImage = await Image.createFromFile({
         filePath: avatar.tmpPath,
         userId: auth.user!.id,
-        folder: 'avatars',
         resizeOptions: {
           width: 512,
           height: 512,
