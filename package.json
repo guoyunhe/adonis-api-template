@@ -28,7 +28,6 @@
     "@types/luxon": "^3.3.0",
     "@types/proxy-addr": "^2.0.0",
     "@types/source-map-support": "^0.5.6",
-    "@types/uuid": "^9.0.1",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-adonis": "^2.1.1",
@@ -48,12 +47,12 @@
     "image-size": "^1.0.2",
     "luxon": "^3.3.0",
     "mysql2": "^2.3.3",
+    "nanoid": "^4.0.2",
     "openapi-types": "^12.1.1",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.32.1",
     "source-map-support": "^0.5.21",
-    "tmp-promise": "^3.0.3",
-    "uuid": "^9.0.0"
+    "tmp-promise": "^3.0.3"
   }
 }

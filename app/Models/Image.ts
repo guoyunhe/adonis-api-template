@@ -4,8 +4,8 @@ import { column, computed } from '@ioc:Adonis/Lucid/Orm';
 import driveConfig from 'Config/drive';
 import { readFile } from 'fs/promises';
 import { imageSize } from 'image-size';
+import { nanoid } from 'nanoid';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
 import Model from './Model';
 
 interface ImageCreateFromFileOptions {
@@ -50,7 +50,7 @@ export default class Image extends Model {
   }: ImageCreateFromFileOptions) {
     let buffer = await readFile(filePath);
     buffer = await sharp(buffer).webp().resize(resizeOptions).toBuffer();
-    const path = `images/${uuidv4()}.webp`;
+    const path = await Image.makeFilePath();
     await Drive.put(path, buffer);
     const size = buffer.byteLength;
     const { width, height } = imageSize(buffer);
@@ -62,5 +62,15 @@ export default class Image extends Model {
       height,
     });
     return image;
+  }
+
+  public static async makeFilePath(): Promise<string> {
+    const path = `images/${nanoid()}.webp`;
+
+    if (await Drive.exists(path)) {
+      return await Image.makeFilePath();
+    } else {
+      return path;
+    }
   }
 }
