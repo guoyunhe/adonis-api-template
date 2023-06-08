@@ -47,7 +47,7 @@
     "image-size": "^1.0.2",
     "luxon": "^3.3.0",
     "mysql2": "^2.3.3",
-    "nanoid": "^4.0.2",
+    "nanoid": "^3.3.6",
     "openapi-types": "^12.1.1",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
