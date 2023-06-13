@@ -36,6 +36,12 @@ Route.resource('/images', 'ImagesController')
     destroy: ['auth'],
   });
 
+Route.group(() => {
+  Route.resource('/users', 'AdminUsersController').apiOnly();
+})
+  .prefix('/admin')
+  .middleware(['auth', 'admin']);
+
 Route.get('/', async ({ i18n }) => {
   return { hello: i18n.formatMessage('messages.hello') };
 });
