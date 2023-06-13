@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import Image from 'App/Models/Image';
 
-export default class ResumesController {
+export default class ImagesController {
   public async index({ auth }: HttpContextContract) {
     return await Image.query().where('userId', auth.user!.id);
   }
