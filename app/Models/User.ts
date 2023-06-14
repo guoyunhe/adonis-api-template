@@ -28,6 +28,9 @@ export default class User extends Model {
   @column()
   public role: string | null;
 
+  @column()
+  public locale: string | null;
+
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
