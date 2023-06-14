@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.string('password', 180).notNullable();
       table.string('remember_me_token').nullable();
       table.string('role').nullable();
+      table.string('locale').nullable();
 
       table.timestamp('created_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));
       table.timestamp('updated_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));
