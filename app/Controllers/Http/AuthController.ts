@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
-import Image from 'App/Models/Image';
 import User from 'App/Models/User';
 
 export default class AuthController {
@@ -57,12 +56,14 @@ export default class AuthController {
   }
 
   public async update({ auth, request }: HttpContextContract) {
-    const { avatar, name, username, email } = await request.validate({
+    const data = await request.validate({
       schema: schema.create({
-        avatar: schema.file.optional({
-          size: '20mb',
-          extnames: ['jpg', 'gif', 'png', 'webp'],
-        }),
+        avatarId: schema.number.nullableAndOptional([
+          rules.exists({
+            table: 'images',
+            column: 'id',
+          }),
+        ]),
         name: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
         username: schema.string.optional({ trim: true }, [
           rules.alphaNum({ allow: ['underscore'] }),
@@ -84,42 +85,13 @@ export default class AuthController {
           }),
           rules.maxLength(255),
         ]),
+        locale: schema.string.optional({ trim: true }),
       }),
     });
 
-    if (avatar?.tmpPath) {
-      const avatarImage = await Image.createFromFile({
-        filePath: avatar.tmpPath,
-        userId: auth.user!.id,
-        resizeOptions: {
-          width: 512,
-          height: 512,
-          fit: 'cover',
-        },
-      });
-      if (auth.user?.avatarId) {
-        const oldAvatarImage = await Image.find(auth.user?.avatarId);
-        await oldAvatarImage?.delete();
-      }
-      await auth.user!.related('avatar').associate(avatarImage);
-    }
-
-    if (name) {
-      auth.user!.name = name;
-    }
-
-    if (username) {
-      auth.user!.username = username;
-    }
-
-    if (email) {
-      auth.user!.email = email;
-    }
-
+    auth.user!.merge(data);
     await auth.user!.save();
-
     await auth.user!.load('avatar');
-
     return auth.user;
   }
 

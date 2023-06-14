@@ -8,7 +8,7 @@ export default class User extends Model {
   public avatar: BelongsTo<typeof Image>;
 
   @column()
-  public avatarId: number;
+  public avatarId: number | null;
 
   @column()
   public name: string;
