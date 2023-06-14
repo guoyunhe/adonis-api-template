@@ -24,7 +24,7 @@ export default class AuthController {
     };
   }
 
-  public async register({ auth, request }: HttpContextContract) {
+  public async register({ auth, i18n, request }: HttpContextContract) {
     const data = await request.validate({
       schema: schema.create({
         name: schema.string({ trim: true }, [rules.maxLength(255)]),
@@ -45,7 +45,7 @@ export default class AuthController {
         ]),
       }),
     });
-    const user = await User.create(data);
+    const user = await User.create({ locale: i18n.locale, ...data });
     const token = await auth.use('api').attempt(data.email, data.password);
     return { user, token };
   }
